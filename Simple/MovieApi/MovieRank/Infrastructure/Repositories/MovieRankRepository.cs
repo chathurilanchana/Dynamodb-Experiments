@@ -4,6 +4,8 @@ using MovieRank.Infrastructure.Models;
 
 namespace MovieRank.Infrastructure.Repositories
 {
+    //This uses dynamodb's object persistence model
+    //You cant use object persistence model with single table design, as different types of result may return from the same query
     public class MovieRankRepository : IMovieRankRepository
     {
         private readonly IDynamoDBContext _dynamodbContext;

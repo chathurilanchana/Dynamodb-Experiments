@@ -8,7 +8,11 @@ namespace MovieRank.Infrastructure.Models
         [DynamoDBHashKey]
         public int UserId { get; set; } 
 
+        [DynamoDBGlobalSecondaryIndexHashKey]
+        [DynamoDBRangeKey]
         public string MovieName { get; set; }
+
+        [DynamoDBGlobalSecondaryIndexRangeKey]
         public string Description { get; set; }
         public int Rank{ get; set; }
         public string RankedOn{ get; set; }

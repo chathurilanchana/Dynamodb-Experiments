@@ -29,7 +29,7 @@ builder.Services.AddSingleton<IDynamoDBContext, DynamoDBContext>((serviceProvide
 });
 
 builder.Services.AddTransient<IMovieRankService,MovieRankService>();
-builder.Services.AddTransient<IMovieRankRepository, MovieRankRepository>();
+builder.Services.AddTransient<IMovieRankWithDocumentDbRepository, MovieRankWithDocumentDbRepository>();
 
 var app = builder.Build();
 
