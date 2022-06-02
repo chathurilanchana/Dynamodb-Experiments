@@ -71,11 +71,11 @@ namespace MovieRank.IntegrationTests
                 Description = $"This is description of movie {movieName}",
                 Rank = 3
             };
-           
+
             //var json = System.Text.Json.JsonSerializer.Serialize(movie1);
             //var stringContent = new StringContent(json, Encoding.UTF8, "application/json");
 
-            //var result = _client.PostAsync($"movies/user/{userId}", stringContent);
+            //using (var result = await _client.PostAsync($"movies/user/{userId}", stringContent))
 
             var memoryStream = new MemoryStream();
             await System.Text.Json.JsonSerializer.SerializeAsync(memoryStream, movie1);
