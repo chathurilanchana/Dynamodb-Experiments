@@ -1,5 +1,8 @@
 using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.DataModel;
+using Amazon.Extensions.NETCore.Setup;
+using Amazon.Runtime;
+using Amazon.Runtime.CredentialManagement;
 using MovieRank.Domain;
 using MovieRank.Infrastructure.Repositories;
 
@@ -12,18 +15,38 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddDefaultAWSOptions(new Amazon.Extensions.NETCore.Setup.AWSOptions
+var isLocal = false;
+
+if (isLocal)
 {
-    Region = Amazon.RegionEndpoint.EUNorth1,
-    Profile = "chathuri"
-});
-builder.Services.AddAWSService<IAmazonDynamoDB>();
+    builder.Services.AddDefaultAWSOptions(new Amazon.Extensions.NETCore.Setup.AWSOptions
+    {
+        Region = Amazon.RegionEndpoint.EUNorth1,
+        Profile = "fake"
+    });
+    builder.Services.AddSingleton<IAmazonDynamoDB>(sp =>
+    {
+        var clientConfig = new AmazonDynamoDBConfig { ServiceURL = "http://localhost:8000" };
+        var credentials = new BasicAWSCredentials("fakeMyKeyId", "fakeSecretAccessKey");
+        return new AmazonDynamoDBClient(credentials, clientConfig);
+    });
+}
+else
+{
+    builder.Services.AddDefaultAWSOptions(new Amazon.Extensions.NETCore.Setup.AWSOptions
+    {
+        Region = Amazon.RegionEndpoint.EUNorth1,
+        Profile = "chathuri"
+    });
+    builder.Services.AddAWSService<IAmazonDynamoDB>();
+}
+
 builder.Services.AddSingleton<IDynamoDBContext, DynamoDBContext>((serviceProvider) =>
 {
     IAmazonDynamoDB amazonDynamoDBClient = serviceProvider.GetRequiredService<IAmazonDynamoDB>();
     DynamoDBContextConfig dynamoDBContextConfig = new DynamoDBContextConfig
     {
-       // TableNamePrefix = "Movies"
+        // TableNamePrefix = "Movies"
     };
     return new DynamoDBContext(amazonDynamoDBClient, dynamoDBContextConfig);
 });
@@ -45,3 +68,7 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+#pragma warning disable CA1050 // Declare types in namespaces
+public partial class Program { }
+#pragma warning restore CA1050 // Declare types in namespaces

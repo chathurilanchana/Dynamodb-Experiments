@@ -1,0 +1,39 @@
+{
+    "AttributeDefinitions": [{
+            "AttributeName": "UserId",
+            "AttributeType": "N"
+        }, {
+            "AttributeName": "MovieName",
+            "AttributeType": "S"
+        }],
+    "TableName": "Movies",
+    "KeySchema": [{
+            "AttributeName": "UserId",
+            "KeyType": "HASH"
+        }, {
+            "AttributeName": "MovieName",
+            "KeyType": "RANGE"
+        }
+    ],
+    "GlobalSecondaryIndexes": [{
+            "IndexName": "MovieName-Index",
+            "KeySchema": [{
+                    "AttributeName": "MovieName",
+                    "KeyType": "HASH"
+                }
+            ],
+            "Projection": {
+                "ProjectionType": "ALL"
+            },
+            "ProvisionedThroughput": {
+                "ReadCapacityUnits": 3,
+                "WriteCapacityUnits": 3
+            }
+        }
+    ],
+    "ProvisionedThroughput": {
+        "ReadCapacityUnits": 3,
+        "WriteCapacityUnits": 3
+    },
+    "TableClass": "STANDARD"
+}

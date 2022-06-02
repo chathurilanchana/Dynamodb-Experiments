@@ -5,6 +5,10 @@ VisualStudioVersion = 17.1.32421.90
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MovieRank", "MovieRank.csproj", "{98E0C833-F0AA-423A-A960-4664A38B9348}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{9012829C-86BA-4E49-B73F-89566B963BF1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieRank.IntegrationTests", "..\MovieRank.IntegrationTests\MovieRank.IntegrationTests.csproj", "{2A845DDD-A674-40AB-A675-6C12836F093E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,9 +19,16 @@ Global
 		{98E0C833-F0AA-423A-A960-4664A38B9348}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{98E0C833-F0AA-423A-A960-4664A38B9348}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{98E0C833-F0AA-423A-A960-4664A38B9348}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2A845DDD-A674-40AB-A675-6C12836F093E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2A845DDD-A674-40AB-A675-6C12836F093E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2A845DDD-A674-40AB-A675-6C12836F093E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2A845DDD-A674-40AB-A675-6C12836F093E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{2A845DDD-A674-40AB-A675-6C12836F093E} = {9012829C-86BA-4E49-B73F-89566B963BF1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9C6B0697-C1BF-4BEA-8DDD-4C39B86DAF7D}
