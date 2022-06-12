@@ -24,3 +24,5 @@ aws dynamodb list-tables --profile fake --endpoint-url http://localhost:8000
 
 
 TODO:
+Experiment with multi GSI
+Load tests to see whether we have hot partitions
