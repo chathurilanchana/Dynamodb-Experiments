@@ -7,8 +7,8 @@ Then understand how to use nosql workbench
 Change the configs to read from as in https://stackoverflow.com/questions/48676919/best-way-to-inject-instance-of-dynamodbcontext-in-net-core
 
 
-Understand document model deeper https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DotNetSDKMidLevel.html. You cant use object persistance model with signle table design.
-So you should know the document model.
+Understand document model deeper https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DotNetSDKMidLevel.html. 
+You cant use object persistance model with signle table design.
 
 INVESTIGATE: HOW TO GET TOP N ELEMENTS ONLY FROM THE SORT INDEX
 
