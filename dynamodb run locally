@@ -1,9 +1,5 @@
 One item: 400 kb or less
 
-start with https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GSI.html first. Code it in c#
-
-Then go to single table design
-
 
 Then understand how to use nosql workbench
 
