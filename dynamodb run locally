@@ -10,8 +10,6 @@ Change the configs to read from as in https://stackoverflow.com/questions/486769
 Understand document model deeper https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DotNetSDKMidLevel.html. You cant use object persistance model with signle table design.
 So you should know the document model.
 
-INVESTIGATE: HOW TO GET TOP N ELEMENTS ONLY FROM THE SORT INDEX
-
 
 Setup dynamodb locally https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DynamoDBLocal.DownloadingAndRunning.html
 aws dynamodb create-table --generate-cli-skeleton
