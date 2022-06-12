@@ -32,8 +32,8 @@
         }
     ],
     "ProvisionedThroughput": {
-        "ReadCapacityUnits": 3,
-        "WriteCapacityUnits": 3
+        "ReadCapacityUnits": 2,
+        "WriteCapacityUnits": 2
     },
     "TableClass": "STANDARD"
 }
