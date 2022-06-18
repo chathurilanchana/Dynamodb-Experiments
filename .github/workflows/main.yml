@@ -13,7 +13,7 @@ jobs:
 
     steps:
     - name: Build and Run tests
-      uses: ./.github/workflows/templates/actions/build-and-test@actions-experiment
+      uses: ./.github/workflows/templates/actions/build-and-test
       with:
         dotnet-version: 6.0.x
         solution-path: Simple/MovieApi/MovieRank/
