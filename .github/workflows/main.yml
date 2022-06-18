@@ -12,26 +12,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v2
+    - name: Build and Run tests
+      uses: templates/actions/build-and-test.yml@actions-experiment
       with:
         dotnet-version: 6.0.x
-    - name: Build and analysis
-      run: |
-        cd Simple/MovieApi/MovieRank/
-        dotnet build
-    - name: Test
-      run: |
-        cd Simple/MovieApi/MovieRank/
-        dotnet test --no-build --verbosity normal --logger "trx;LogFileName=test-results.trx" || true
-    - name: Visualize test results
-      uses: dorny/test-reporter@v1
-      if: always()
-      with: 
-        name: DotNET Tests
-        path: "**/test-results.trx"                            
-        reporter: dotnet-trx
-        fail-on-error: true  
-        retention-days: 1
+        solution-path: Simple/MovieApi/MovieRank/
+        test-results-retention-days: 1
 

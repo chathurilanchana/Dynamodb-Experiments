@@ -1,0 +1,38 @@
+on:
+  workflow_call:
+    inputs:
+      dotnet-version:
+        required: true
+      solution-path:
+        required: true
+      test-results-retention-days:
+        required: true
+        type: number
+
+jobs:
+  build-and-test:
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v2
+      with:
+        dotnet-version: $dotnet-version
+    - name: Build
+      run: |
+        echo "solution path is $solution-path"
+        cd $solution-path
+        dotnet build
+    - name: Test
+      run: |
+        cd $solution-path
+        dotnet test --no-build --verbosity normal --logger "trx;LogFileName=test-results.trx" || true
+    - name: Visualize test results
+      uses: dorny/test-reporter@v1
+      if: always()
+      with: 
+        name: DotNET Tests
+        path: "**/test-results.trx"                            
+        reporter: dotnet-trx
+        fail-on-error: true  
+        retention-days: $test-results-retention-days
+
