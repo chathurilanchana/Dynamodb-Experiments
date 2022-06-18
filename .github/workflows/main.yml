@@ -12,8 +12,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - uses: actions/checkout@v3
     - name: Build and Run tests
-      uses: ./.github/workflows/actions/build-and-test
+      uses: ./.github/actions/build-and-test
       with:
         dotnet-version: 6.0.x
         solution-path: Simple/MovieApi/MovieRank/
