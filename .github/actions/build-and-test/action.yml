@@ -5,6 +5,8 @@ inputs:
     required: true
   solution-path:
     required: true
+  publish-folder:
+    required: true
 
 runs:
   using: "composite"
@@ -20,6 +22,7 @@ runs:
         dotnet restore
         
         dotnet build --configuration Release --no-restore # set /WarnAsError to fail on warnings
+        dotnet publish -c Release -o ${{ inputs.publish-folder }} -r linux-x64
     - name: Test
       shell: bash
       run: |
@@ -33,4 +36,10 @@ runs:
         path: "**/test-results.trx"                            
         reporter: dotnet-trx
         fail-on-error: true  
+    - name: Upload published package
+      uses: actions/upload-artifact@v2
+        with: 
+          name: publish
+          path: ${{ inputs.publish-folder }}
+          retention-days: 1
 
