@@ -5,9 +5,6 @@ inputs:
     required: true
   solution-path:
     required: true
-  test-results-retention-days:
-    required: true
-    type: number
 
 runs:
   using: "composite"
@@ -21,7 +18,8 @@ runs:
         echo "solution path is ${{ inputs.solution-path }}"
         cd ${{ inputs.solution-path }}
         dotnet restore
-        dotnet build --configuration Release --no-restore /WarnAsError
+        
+        dotnet build --configuration Release --no-restore # set /WarnAsError to fail on warnings
     - name: Test
       shell: bash
       run: |
@@ -35,5 +33,4 @@ runs:
         path: "**/test-results.trx"                            
         reporter: dotnet-trx
         fail-on-error: true  
-        retention-days: ${{ inputs.test-results-retention-days }}
 
