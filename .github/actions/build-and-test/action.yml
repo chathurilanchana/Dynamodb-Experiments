@@ -11,6 +11,8 @@ on:
 
 jobs:
   build-and-test:
+    name: Build and Test
+    runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
     - name: Setup .NET
