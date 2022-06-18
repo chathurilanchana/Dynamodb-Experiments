@@ -20,7 +20,7 @@ runs:
       run: |
         echo "solution path is ${{ inputs.solution-path }}"
         cd ${{ inputs.solution-path }}
-        dotnet build
+        dotnet build --configuration Release
     - name: Test
       shell: bash
       run: |
