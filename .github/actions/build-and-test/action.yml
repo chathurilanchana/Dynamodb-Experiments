@@ -1,20 +1,17 @@
-on:
-  workflow_call:
-    inputs:
-      dotnet-version:
-        required: true
-      solution-path:
-        required: true
-      test-results-retention-days:
-        required: true
-        type: number
+Name: Reusable Build and Tests for .Net core
 
-jobs:
-  build-and-test:
-    name: Build and Test
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v3
+inputs:
+  dotnet-version:
+    required: true
+  solution-path:
+    required: true
+  test-results-retention-days:
+    required: true
+    type: number
+
+runs:
+  using: "composite"
+  steps:
     - name: Setup .NET
       uses: actions/setup-dotnet@v2
       with:

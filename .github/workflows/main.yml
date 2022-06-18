@@ -8,15 +8,13 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     steps:
-    - uses: actions/checkout@v3
-    - name: Build and Run tests
-      uses: ./.github/actions/build-and-test
-      with:
-        dotnet-version: 6.0.x
-        solution-path: Simple/MovieApi/MovieRank/
-        test-results-retention-days: 1
+      - uses: actions/checkout@v3
+      - name: Build and Run tests
+        uses: ./.github/actions/build-and-test
+        with:
+          dotnet-version: 6.0.x
+          solution-path: Simple/MovieApi/MovieRank/
+          test-results-retention-days: 1
 
