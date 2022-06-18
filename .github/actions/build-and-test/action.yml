@@ -21,7 +21,7 @@ runs:
         echo "solution path is ${{ inputs.solution-path }}"
         cd ${{ inputs.solution-path }}
         dotnet restore
-        dotnet build --configuration Release --no-restore
+        dotnet build --configuration Release --no-restore /WarnAsError
     - name: Test
       shell: bash
       run: |
