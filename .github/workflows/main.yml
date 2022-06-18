@@ -7,7 +7,7 @@ on:
     branches: [ "master" ]
 
 jobs:
-  Build:
+  build:
     uses: ./.github/workflows/reusable/build.yml
 
   # analyze:
