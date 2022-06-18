@@ -23,6 +23,10 @@ runs:
         dotnet build
     - name: Test
       shell: bash
+      run: |
+        cd ${{ inputs.solution-path }}
+        dotnet test --no-build --verbosity normal --logger "trx;LogFileName=test-results.trx" || true
+    - name: Visualize test results
       uses: dorny/test-reporter@v1
       if: always()
       with: 
@@ -31,16 +35,4 @@ runs:
         reporter: dotnet-trx
         fail-on-error: true  
         retention-days: ${{ inputs.test-results-retention-days }}
-      run: |
-        cd ${{ inputs.solution-path }}
-        dotnet test --no-build --verbosity normal --logger "trx;LogFileName=test-results.trx" || true
-    # - name: Visualize test results
-    #   uses: dorny/test-reporter@v1
-    #   if: always()
-    #   with: 
-    #     name: DotNET Tests
-    #     path: "**/test-results.trx"                            
-    #     reporter: dotnet-trx
-    #     fail-on-error: true  
-    #     retention-days: ${{ inputs.test-results-retention-days }}
 
