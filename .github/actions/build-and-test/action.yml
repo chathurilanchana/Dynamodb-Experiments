@@ -22,7 +22,7 @@ runs:
         dotnet restore
         
         dotnet build --configuration Release --no-restore # set /WarnAsError to fail on warnings
-        dotnet publish -c Release -o ${{ inputs.publish-folder }} -r linux-x64
+        dotnet publish -c Release -o ${{ inputs.publish-folder }} -r linux-x64   # do this only if rule is not merge request
     - name: Test
       shell: bash
       run: |
@@ -38,8 +38,8 @@ runs:
         fail-on-error: true  
     - name: Upload published package
       uses: actions/upload-artifact@v2
-        with: 
-          name: publish
-          path: ${{ inputs.publish-folder }}
-          retention-days: 1
+      with: 
+        name: publish
+        path: ${{ inputs.publish-folder }}
+        retention-days: 1
 
