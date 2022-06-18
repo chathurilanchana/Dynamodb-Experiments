@@ -23,4 +23,14 @@ jobs:
         dotnet build
     - name: Test
       run: |
+        cd Simple/MovieApi/MovieRank/
         dotnet test --no-build --verbosity normal --logger "trx;LogFileName=test-results.trx" || true
+    - name: Visualize test results
+      uses: dorny/test-reporter@v1
+      if: always()
+      with: 
+        name: DotNET Tests
+        path: "**/test-results.trx"                            
+        reporter: dotnet-trx
+        fail-on-error: true  
+
