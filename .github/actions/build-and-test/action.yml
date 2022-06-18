@@ -18,13 +18,13 @@ runs:
     - name: Build
       shell: bash
       run: |
-        echo "solution path is $solution-path"
-        cd $solution-path
+        echo "solution path is ${{ inputs.solution-path }}"
+        cd ${{ inputs.solution-path }}
         dotnet build
     - name: Test
       shell: bash
       run: |
-        cd $solution-path
+        cd ${{ inputs.solution-path }}
         dotnet test --no-build --verbosity normal --logger "trx;LogFileName=test-results.trx" || true
     - name: Visualize test results
       uses: dorny/test-reporter@v1
@@ -34,5 +34,5 @@ runs:
         path: "**/test-results.trx"                            
         reporter: dotnet-trx
         fail-on-error: true  
-        retention-days: $test-results-retention-days
+        retention-days: ${{ inputs.test-results-retention-days }}
 
