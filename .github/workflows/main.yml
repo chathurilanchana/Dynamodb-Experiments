@@ -2,7 +2,7 @@ name: .NET
 
 on:
   push:
-    branches: [ "actions-experiment"]
+    branches: [ "master"]
 
 jobs:
   build:
