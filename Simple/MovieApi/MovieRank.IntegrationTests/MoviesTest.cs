@@ -32,7 +32,7 @@ namespace MovieRank.IntegrationTests
         [Fact]
         public async Task AddMovieRankData_ReturnsOk()
         {
-            true.Should().Be(true);
+            Assert.True(true);
         }
     }
 }
