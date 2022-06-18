@@ -6,15 +6,36 @@ on:
   pull_request:
     branches: [ "master" ]
 
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - name: Build and Run tests
-        uses: ./.github/actions/build-and-test
-        with:
-          dotnet-version: 6.0.x
-          solution-path: Simple/MovieApi/MovieRank/
-          test-results-retention-days: 1
+  Build and Test:
+    uses: ./.github/workflows/reusable/build.yml
+
+  # analyze:
+
+  #   name: analyze
+  #   runs-on: ubuntu-latest
+
+  #   strategy:
+  #     fail-fast: false
+  #     matrix:
+  #       language: ['csharp']
+
+  #   steps:
+  #   - name: Checkout repository
+  #     uses: actions/checkout@v2
+  #     # with:
+  #     #   fetch-depth: 2
+
+  #   # - run: git checkout HEAD^2
+  #   #   if: ${{ github.event_name == 'pull_request' }}
+
+  #   - name: Initialize CodeQL
+  #     uses: github/codeql-action/init@v1
+  #     with:
+  #       languages: 'csharp'
+
+  #   - name: Autobuild
+  #     uses: github/codeql-action/autobuild@v1
+
+  #   - name: Perform CodeQL Analysis
+  #     uses: github/codeql-action/analyze@v1
 
