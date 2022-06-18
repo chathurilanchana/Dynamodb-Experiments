@@ -17,9 +17,10 @@ jobs:
       uses: actions/setup-dotnet@v2
       with:
         dotnet-version: 6.0.x
-    - name: Test
+    - name: Build and analysis
       run: |
         cd Simple/MovieApi/MovieRank/
-        dotnet restore
-        dotnet build --no-restore
-        dotnet test --no-build --verbosity normal
+        dotnet build
+    - name: Test
+      run: |
+        dotnet test --no-build --verbosity normal --logger "trx;LogFileName=test-results.trx" || true
