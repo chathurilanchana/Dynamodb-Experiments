@@ -20,12 +20,13 @@ runs:
       run: |
         echo "solution path is ${{ inputs.solution-path }}"
         cd ${{ inputs.solution-path }}
-        dotnet build --configuration Release
+        dotnet restore
+        dotnet build --configuration Release --no-restore
     - name: Test
       shell: bash
       run: |
         cd ${{ inputs.solution-path }}
-        dotnet test --no-build --verbosity normal --logger "trx;LogFileName=test-results.trx" || true
+        dotnet test --no-restore --verbosity normal --logger "trx;LogFileName=test-results.trx" || true
     - name: Visualize test results
       uses: dorny/test-reporter@v1
       if: always()
