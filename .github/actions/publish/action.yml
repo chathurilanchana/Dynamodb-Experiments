@@ -19,7 +19,7 @@ runs:
       run: |
         cd ${{ inputs.csproj-path }}
         echo "###### pubish folder is ${{ inputs.publish-folder }}"
-        dotnet publish -c Release -o "${{ inputs.publish-folder }}"  
+        dotnet publish -c Release -o "${{ inputs.publish-folder }}" -r linux-x64   # do this only if rule is not merge request     
     - name: Upload published package
       uses: actions/upload-artifact@v2
       with: 
