@@ -35,6 +35,7 @@ runs:
         reporter: dotnet-trx
         fail-on-error: true 
     - name: Create package
+      shell: bash
       run: |
         cd ${{ inputs.solution-path }}
         echo "###### pubish folder is ${{ inputs.publish-folder }}"
