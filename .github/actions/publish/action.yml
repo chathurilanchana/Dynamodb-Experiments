@@ -17,7 +17,7 @@ runs:
     - name: Create package
       shell: bash
       run: |
-        cd ${{ inputs.solution-path }}
+        cd ${{ inputs.csproj-path }}
         echo "###### pubish folder is ${{ inputs.publish-folder }}"
         dotnet publish -c Release -o "${{ inputs.publish-folder }}"  
     - name: Upload published package
@@ -29,6 +29,7 @@ runs:
     - name: List artifacts
       shell: bash
       run: |
+        pwd
         echo "Listing artifacts"
         ls ${{ inputs.publish-folder }}
 
