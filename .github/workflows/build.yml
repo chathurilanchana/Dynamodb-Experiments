@@ -1,0 +1,15 @@
+name: Build workflow
+
+on:
+  workflow_call:
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Build and Run tests
+        uses: ./.github/actions/build-and-test
+        with:
+          dotnet-version: 6.0.x
+          solution-path: Simple/MovieApi/MovieRank/

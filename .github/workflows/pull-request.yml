@@ -1,8 +1,8 @@
 name: .NET
 
 on:
-  push:
-    branches: [ "master"]
+  pull_request:
+    branches: [ "master" ]
 
 jobs:
   build-and-test:
@@ -10,6 +10,7 @@ jobs:
 
   publish:
     runs-on: ubuntu-latest
+    needs: [build-and-test]
     steps:
       - uses: actions/checkout@v3
       - name: Publish exacutable
@@ -19,4 +20,3 @@ jobs:
           csproj-path: Simple/MovieApi/MovieRank/
           publish-folder: publish
 
-    

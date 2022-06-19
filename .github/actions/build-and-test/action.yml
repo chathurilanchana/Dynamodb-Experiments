@@ -1,0 +1,56 @@
+Name: Reusable Build and Tests for .Net core
+
+inputs:
+  dotnet-version:
+    required: true
+  solution-path:
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - uses: actions/setup-dotnet@v2
+      with:
+        dotnet-version: ${{ inputs.dotnet-version }}
+    - name: Build
+      shell: bash
+      run: |
+        echo "solution path is ${{ inputs.solution-path }}"
+        cd ${{ inputs.solution-path }}
+        dotnet restore
+        dotnet build -c Release --no-restore # set /WarnAsError to fail on warnings
+    - name: Test
+      shell: bash
+      run: |
+        cd ${{ inputs.solution-path }}
+        dotnet test -c Release --no-restore --no-build --verbosity normal --logger "trx;LogFileName=test-results.trx" || true
+    - name: Visualize test results
+      uses: dorny/test-reporter@v1
+      if: always()
+      with: 
+        name: DotNET Tests
+        path: "**/test-results.trx"                            
+        reporter: dotnet-trx
+        fail-on-error: true 
+    - uses: actions/setup-python@v3
+    - uses: aws-actions/setup-sam@v2
+    - uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: 1234
+        aws-secret-access-key: 1234
+        aws-region: us-east-2
+    - name: Sam package
+      shell: bash
+      run: |
+        sam build
+        echo "sam build done"
+        sam package --s3-bucket helo --output-template-file out/transformed-template.json
+        ls out
+    - name: Upload published package
+      uses: actions/upload-artifact@v2
+      with: 
+        name: publish
+        path: out
+        retention-days: 1
+
+
