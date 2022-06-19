@@ -5,12 +5,11 @@ inputs:
     required: true
   solution-path:
     required: true
-  publish-folder:
-    required: true
 
 runs:
   using: "composite"
   steps:
+    - uses: actions/checkout@v3
     - uses: actions/setup-dotnet@v2
       with:
         dotnet-version: ${{ inputs.dotnet-version }}
@@ -20,12 +19,12 @@ runs:
         echo "solution path is ${{ inputs.solution-path }}"
         cd ${{ inputs.solution-path }}
         dotnet restore
-        dotnet build --configuration Release --no-restore # set /WarnAsError to fail on warnings
+        dotnet build --no-restore # set /WarnAsError to fail on warnings
     - name: Test
       shell: bash
       run: |
         cd ${{ inputs.solution-path }}
-        dotnet test --no-restore --verbosity normal --logger "trx;LogFileName=test-results.trx" || true
+        dotnet test --no-restore --no-build --verbosity normal --logger "trx;LogFileName=test-results.trx" || true
     - name: Visualize test results
       uses: dorny/test-reporter@v1
       if: always()
@@ -34,22 +33,5 @@ runs:
         path: "**/test-results.trx"                            
         reporter: dotnet-trx
         fail-on-error: true 
-    - name: Create package
-      shell: bash
-      run: |
-        cd ${{ inputs.solution-path }}
-        echo "###### pubish folder is ${{ inputs.publish-folder }}"
-        dotnet publish -c Release -o ${{ inputs.publish-folder }} -r linux-x64   # do this only if rule is not merge request     
-    - name: Upload published package
-      uses: actions/upload-artifact@v2
-      with: 
-        name: publish
-        path: ${{ inputs.publish-folder }}
-        retention-days: 1
-    - name: List artifacts
-      shell: bash
-      run: |
-        echo "Listing artifacts"
-        ls ${{ inputs.publish-folder }}
 
 
