@@ -8,3 +8,14 @@ jobs:
   build-and-test:
     uses: ./.github/workflows/build.yml
 
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Publish exacutable
+        uses: ./.github/actions/package
+        with:
+          dotnet-version: 6.0.x
+          solution-path: Simple/MovieApi/MovieRank/
+          publish-folder: "${GITHUB_WORKSPACE}/publish"
+
