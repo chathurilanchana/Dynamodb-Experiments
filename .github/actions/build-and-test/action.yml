@@ -46,6 +46,7 @@ runs:
         path: ${{ inputs.publish-folder }}
         retention-days: 1
     - name: List artifacts
+      shell: bash
       run: |
         echo "Listing artifacts"
         ls ${{ inputs.publish-folder }}
