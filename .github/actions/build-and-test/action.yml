@@ -20,9 +20,7 @@ runs:
         echo "solution path is ${{ inputs.solution-path }}"
         cd ${{ inputs.solution-path }}
         dotnet restore
-        
         dotnet build --configuration Release --no-restore # set /WarnAsError to fail on warnings
-        dotnet publish -c Release -o ${{ inputs.publish-folder }} -r linux-x64   # do this only if rule is not merge request
     - name: Test
       shell: bash
       run: |
@@ -35,11 +33,21 @@ runs:
         name: DotNET Tests
         path: "**/test-results.trx"                            
         reporter: dotnet-trx
-        fail-on-error: true  
+        fail-on-error: true 
+    - name: Create package
+      run: |
+        cd ${{ inputs.solution-path }}
+        echo "###### pubish folder is ${{ inputs.publish-folder }}"
+        dotnet publish -c Release -o ${{ inputs.publish-folder }} -r linux-x64   # do this only if rule is not merge request     
     - name: Upload published package
       uses: actions/upload-artifact@v2
       with: 
         name: publish
         path: ${{ inputs.publish-folder }}
         retention-days: 1
+    - name: List artifacts
+      run: |
+        echo "Listing artifacts"
+        ls ${{ inputs.publish-folder }}
+
 
